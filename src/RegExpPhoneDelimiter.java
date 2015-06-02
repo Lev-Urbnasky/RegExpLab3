@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 
 public class RegExpPhoneDelimiter {
-    public static void main(String[] ars) {
+    public static void main(String[] args) {
         RegExpPhoneDelimiter fixer = new RegExpPhoneDelimiter();
         fixer.delimit(new File("someTextWithPhones"));
     }

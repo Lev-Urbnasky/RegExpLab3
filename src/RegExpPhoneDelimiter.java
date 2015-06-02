@@ -19,24 +19,24 @@ public class RegExpPhoneDelimiter {
     }
 
     public void delimit(File file) {
-        String in;
+        String input;
         try {
-            in = new String(Files.readAllBytes(file.toPath()), "UTF-8");
+            input = new String(Files.readAllBytes(file.toPath()), "UTF-8");
         } catch (IOException e) {
             System.out.println("Нет файла по указанному адресу!");
             return;
         }
-        Matcher matcher = Pattern.compile("\\s+\\+?(\\d[\\s\\-\\(\\)\\+]{0,3}){11}").matcher(in);
-        StringBuffer out = new StringBuffer();
+        Matcher matcher = Pattern.compile("\\s+\\+?(\\d[\\s\\-\\(\\)\\+]{0,3}){11}").matcher(input);
+        StringBuffer output = new StringBuffer();
         while (matcher.find()) {
-            String number = matcher.group();
-            number = number.replaceAll("[^\\d]", "");
-            StringBuilder stringBuilder = new StringBuilder(number.replaceFirst("\\d", "7"));
-            number = stringBuilder
+            String phoneNumber = matcher.group();
+            phoneNumber = phoneNumber.replaceAll("[^\\d]", "");
+            StringBuilder stringBuilder = new StringBuilder(phoneNumber.replaceFirst("\\d", "7"));
+            phoneNumber = stringBuilder
                     .insert(0, " +").insert(3, " ").insert(4, "(").insert(8, ") ").insert(13, "-").insert(16, "-")
                     .insert(19, " ").toString();
-            matcher.appendReplacement(out, number);
+            matcher.appendReplacement(output, phoneNumber);
         }
-        System.out.println(matcher.appendTail(out).toString());
+        System.out.println(matcher.appendTail(output).toString());
     }
 }
